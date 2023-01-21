@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using WebApiExample.Services;
 
 namespace WebApiExample {
@@ -7,10 +8,20 @@ namespace WebApiExample {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Add typed client DummyRestapi
             builder.Services.AddHttpClient<DummyRestApiServices>(opt => {
                 opt.BaseAddress = new Uri(builder.Configuration.GetSection("DummyRestapi").GetSection("baseUrl").Value);
                 opt.DefaultRequestHeaders.Add("Accept", "application/json");
             });
+
+            // Add Serilog
+            var logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
