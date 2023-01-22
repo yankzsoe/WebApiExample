@@ -14,31 +14,31 @@ namespace WebApiExample.Controllers {
             _dummyRestApi = dummyRestApi;
         }
 
-        [HttpGet("Employees")]
+        [HttpGet("")]
         public async Task<IActionResult> GetEmployees() {
             var result = await _dummyRestApi.GetEmployeesAsync();
             return Ok(result);
         }
 
-        [HttpGet("Employee")]
+        [HttpGet("ById")]
         public async Task<IActionResult> GetEmployeeById(int id) {
             var result = await _dummyRestApi.GetEmployeeByIdAsync(id);
             return Ok(result);
         }
 
-        [HttpPost("Employee")]
+        [HttpPost("")]
         public async Task<IActionResult> PostEmployee(Employee employee) {
             var result = await _dummyRestApi.PostEmployeeAsync(employee);
             return Ok(result);
         }
 
-        [HttpPut("UpdateEmployee")]
+        [HttpPut("")]
         public async Task<IActionResult> PutEmployee(Employee employee) {
             var result = await _dummyRestApi.PutEmployeeAsync(employee);
             return Ok(result);
         }
 
-        [HttpDelete("DeleteEmployee")]
+        [HttpDelete("")]
         public async Task<IActionResult> DeleteEmployee(int id) {
             var result = await _dummyRestApi.DeleteEmployeeAsync(id);
             return Ok(result);
