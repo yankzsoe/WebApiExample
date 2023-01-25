@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using WebApiExample.Helper;
 using WebApiExample.Services;
 
 namespace WebApiExample {
@@ -13,6 +14,9 @@ namespace WebApiExample {
                 opt.BaseAddress = new Uri(builder.Configuration.GetSection("DummyRestapi").GetSection("baseUrl").Value);
                 opt.DefaultRequestHeaders.Add("Accept", "application/json");
             });
+
+            //Register DataContext
+            builder.Services.AddDbContext<DataContext>();
 
             // Add Serilog
             var logger = new LoggerConfiguration()
